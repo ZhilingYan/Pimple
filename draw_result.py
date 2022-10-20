@@ -46,7 +46,7 @@ def draw_segmentation_result(segmentation_mask, image, ground_truth):
     result=cv2.addWeighted(image, 0.5, SRandGT, 0.5, 0)*2
     return result
 
-def draw_segmentation_results(image_batch, segmentation_mask_batch, ground_truth_batch,show_result=True, save_filename_prefix="_result",save_dir="../results"):
+def draw_segmentation_results(image_batch, segmentation_mask_batch, ground_truth_batch,show_result=False, save_filename_prefix="_result",save_dir="../results"):
     #image_batch is a torch tensor (batch_size x 3 x w x h)
     #segmentation_mask_batch is a torch tensor (batch_size x 1 x w x h)
     #ground_truth_batch is a torch tensor (batch_size x 1 x w x h)
