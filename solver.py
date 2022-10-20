@@ -215,6 +215,9 @@ class Solver(object):
 					images = images1.to(self.device)
 					GT = GT.to(self.device)
 					SR = F.sigmoid(self.unet(images))
+					
+					draw_segmentation_results(images, SR, GT, save_dir=self.result_path[:-1])
+					
 					acc += get_accuracy(SR,GT)
 					SE += get_sensitivity(SR,GT)
 					SP += get_specificity(SR,GT)
@@ -280,8 +283,6 @@ class Solver(object):
 				images = images.to(self.device)
 				GT = GT.to(self.device)
 				SR = F.sigmoid(self.unet(images))
-				
-				draw_segmentation_results(images, SR, GT, save_dir=self.result_path[:-1])
 				
 				acc += get_accuracy(SR,GT)
 				SE += get_sensitivity(SR,GT)
