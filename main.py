@@ -23,7 +23,7 @@ def main(config):
     if not os.path.exists(config.result_path):
         os.makedirs(config.result_path)
     
-    lr = random.random()*0.0005 + 0.0000005
+#     lr = random.random()*0.0005 + 0.0000005
     augmentation_prob= random.random()*0.7
 #     epoch = random.choice([100,150,200,250])
     decay_ratio = random.random()*0.8
@@ -31,7 +31,7 @@ def main(config):
 
     config.augmentation_prob = augmentation_prob
 #     config.num_epochs = epoch
-    config.lr = lr
+#     config.lr = lr
 #     config.num_epochs_decay = decay_epoch
     state_dict_path=config.state_dict_path
     if(config.state_dict_path==''):
