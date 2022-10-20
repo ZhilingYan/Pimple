@@ -34,8 +34,8 @@ class ImageFolder(data.Dataset):
 		"""Reads an image from a file and preprocesses it and returns."""
 		image_path = self.image_paths[index]
 		filename = image_path.split('_')[-1][:-len(".jpg")]
-		print("image_path:",image_path)
-		print("filename:",filename)
+# 		print("image_path:",image_path)
+# 		print("filename:",filename)
 		GT_path = self.GT_paths + "/"+'ISIC_' + filename + '_Segmentation.png'
 
 		image = Image.open(image_path)
@@ -98,7 +98,7 @@ class ImageFolder(data.Dataset):
 		Norm_ = T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 		image = Norm_(image)
 
-		return image, GT, image_o
+		return image, GT
 
 	def __len__(self):
 		"""Returns the total number of font files."""
