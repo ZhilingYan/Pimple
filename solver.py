@@ -140,7 +140,7 @@ class Solver(object):
 				DC = 0.		# Dice Coefficient
 				length = 0
 
-				for i, (images, GT) in enumerate(self.train_loader):
+				for i, (images, GT, GT_o) in enumerate(self.train_loader):
 					# GT : Ground Truth
 
 					images = images.to(self.device)
@@ -274,7 +274,7 @@ class Solver(object):
 			JS = 0.		# Jaccard Similarity
 			DC = 0.		# Dice Coefficient
 			length=0
-			for i, (images, GT) in enumerate(self.valid_loader):
+			for i, (images, GT, GT_o) in enumerate(self.valid_loader):
 
 				images = images.to(self.device)
 				GT = GT.to(self.device)
