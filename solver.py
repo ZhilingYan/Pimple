@@ -11,6 +11,7 @@ import torch.nn.functional as F
 from evaluation import *
 from network import U_Net,R2U_Net,AttU_Net,R2AttU_Net
 import csv
+from draw_result import *
 
 
 class Solver(object):
@@ -279,6 +280,9 @@ class Solver(object):
 				images = images.to(self.device)
 				GT = GT.to(self.device)
 				SR = F.sigmoid(self.unet(images))
+				
+				draw_segmentation_results(images, SR, GT, save_dir=self.result_path[:-1])
+				
 				acc += get_accuracy(SR,GT)
 				SE += get_sensitivity(SR,GT)
 				SP += get_specificity(SR,GT)
