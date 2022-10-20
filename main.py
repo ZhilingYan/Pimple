@@ -32,7 +32,7 @@ def main(config):
     config.augmentation_prob = augmentation_prob
 #     config.num_epochs = epoch
     config.lr = lr
-    config.num_epochs_decay = decay_epoch
+#     config.num_epochs_decay = decay_epoch
     state_dict_path=config.state_dict_path
     if(config.state_dict_path==''):
         state_dict_path=None
