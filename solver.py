@@ -106,7 +106,7 @@ class Solver(object):
 		return img
 
 
-	def train(self, state_dict=None):
+	def train(self):
 		"""Train encoder, generator and discriminator."""
 
 		#====================================== Training ===========================================#
@@ -256,15 +256,13 @@ class Solver(object):
 					print('Best %s model score : %.4f'%(self.model_type,best_unet_score))
 					torch.save(best_unet,unet_path)
 
-
-	#def predict(self,cv2_image,):
-	def test(self,state_dict):
+					
 			#===================================== Test ====================================#
 			del self.unet
-			#del best_unet
+			del best_unet
 			self.build_model()
-			#self.unet.load_state_dict(torch.load(unet_path))
-			self.unet.load_state_dict(state_dict)
+			self.unet.load_state_dict(torch.load(unet_path))
+			
 			self.unet.train(False)
 			self.unet.eval()
 
@@ -276,7 +274,7 @@ class Solver(object):
 			JS = 0.		# Jaccard Similarity
 			DC = 0.		# Dice Coefficient
 			length=0
-			for i, (images, GT, images_o) in enumerate(self.valid_loader):
+			for i, (images, GT) in enumerate(self.valid_loader):
 
 				images = images.to(self.device)
 				GT = GT.to(self.device)
@@ -290,8 +288,6 @@ class Solver(object):
 				DC += get_DC(SR,GT)
 						
 				length += images.size(0)
-				SRt = (SR >= 0.5).int()
-				draw_result.draw_segmentation_results(images_o, SRt, GT)
 					
 			acc = acc/length
 			SE = SE/length
@@ -302,9 +298,10 @@ class Solver(object):
 			DC = DC/length
 			unet_score = JS + DC
 
+
 			f = open(os.path.join(self.result_path,'result.csv'), 'a', encoding='utf-8', newline='')
 			wr = csv.writer(f)
-			wr.writerow([self.model_type,acc,SE,SP,PC,F1,JS,DC])
+			wr.writerow([self.model_type,acc,SE,SP,PC,F1,JS,DC,self.lr,best_epoch,self.num_epochs,self.num_epochs_decay,self.augmentation_prob])
 			f.close()
 			
 
