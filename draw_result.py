@@ -7,13 +7,13 @@ def draw_segmentation_result(segmentation_mask, image, ground_truth):
     #ground_truth is a torch tensor (1 x w x h)
     #get the numpy array of the image
     image = image.detach().cpu().numpy()
-    #image = np.transpose(image, (1, 2, 0))
-    #image = image * 255
+    image = np.transpose(image, (1, 2, 0))
+    image = image * 255
     image = image.astype(np.uint8)
     # scale image such that width is 700
-    width = 700
-    height = int(image.shape[0] * width / image.shape[1])
-    image = cv2.resize(image, (width, height))
+#     width = 700
+#     height = int(image.shape[0] * width / image.shape[1])
+#     image = cv2.resize(image, (width, height))
     print('image.resize.shape:', image.shape)
     image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
     #get the numpy array of the segmentation mask
