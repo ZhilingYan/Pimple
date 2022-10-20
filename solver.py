@@ -259,6 +259,7 @@ class Solver(object):
 					best_epoch = epoch
 					best_unet = self.unet.state_dict()
 					print('Best %s model score : %.4f'%(self.model_type,best_unet_score))
+					print('Best model epoch: ', epoch)
 					torch.save(best_unet,unet_path)
 
 					
