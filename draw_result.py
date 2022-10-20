@@ -14,6 +14,7 @@ def draw_segmentation_result(segmentation_mask, image, ground_truth):
     width = 700
     height = int(image.shape[0] * width / image.shape[1])
     image = cv2.resize(image, (width, height))
+    print('image.resize.shape:', image.shape)
     image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
     #get the numpy array of the segmentation mask
     segmentation_mask = segmentation_mask.detach().cpu().numpy()
@@ -51,8 +52,11 @@ def draw_segmentation_results(image_batch, segmentation_mask_batch, ground_truth
     #ground_truth_batch is a torch tensor (batch_size x 1 x w x h)
     for i in range(image_batch.shape[0]):
         image = image_batch[i]
+        print('image.shape:', image.shape)
         segmentation_mask = segmentation_mask_batch[i]
+        print('segmentation.shape', segmentation_mask.shape)
         ground_truth = ground_truth_batch[i]
+        print('ground_truth.shape', ground_truth.shape)
         result = draw_segmentation_result(segmentation_mask, image, ground_truth)
         #if save dir not exist, create it
         if not os.path.exists(save_dir):
